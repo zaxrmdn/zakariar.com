@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zakaria | System & Cloud Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* tailwind slate-900 */
+            color: #cbd5e1; /* tailwind slate-300 */
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 { color: #f8fafc; }
+        .font-mono { font-family: 'Fira Code', monospace; }
+
+        /* Animated gradient text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #06b6d4, #3b82f6);
+        }
+
+        /* Fade-in on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Neon Hover Effect for Cards */
+        .neon-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(30, 41, 59, 0.5); /* slate-800 with opacity */
+            backdrop-filter: blur(10px);
+        }
+        .neon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 10px rgba(6, 182, 212, 0.1);
+            border-color: #06b6d4;
+            z-index: 10;
+        }
+        .neon-card:hover i.icon-highlight {
+            color: #06b6d4;
+            transform: scale(1.1);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        /* Typing cursor */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: #06b6d4;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            box-shadow: 0 0 5px #06b6d4;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Timeline Styles */
+        .timeline-container {
+            position: relative;
+            border-left: 2px solid #334155; /* slate-700 */
+            margin-left: 1rem;
+            padding-left: 2rem;
+        }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; }
+        .timeline-dot {
+            position: absolute;
+            left: -2.45rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #06b6d4;
+            border: 4px solid #0f172a;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Profile Glow */
+        .profile-glow {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+            transition: all 0.5s ease-in-out;
+        }
+        .profile-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.5);
+            border-color: #06b6d4;
+        }
+        
+        /* Line clamping for blog descriptions */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-slate-900/80 backdrop-blur-md border-b border-transparent py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold font-mono text-cyan-400 tracking-tighter hover:text-white transition-colors duration-300">ZAKARIA<span class="text-white">.</span></a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#perjalanan" class="hover:text-cyan-400 transition-colors">Perjalanan</a>
+                <a href="#arsitektur" class="hover:text-cyan-400 transition-colors">Arsitektur</a>
+                <a href="#uses" class="hover:text-cyan-400 transition-colors">/uses</a>
+                <a href="#sertifikasi" class="hover:text-cyan-400 transition-colors">Sertifikasi</a>
+                <a href="#blog" class="hover:text-cyan-400 transition-colors">Blog</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-cyan-400 focus:outline-none transition-colors">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-slate-800 border-b border-slate-700 shadow-xl">
+            <div class="flex flex-col px-6 py-4 space-y-4 text-center">
+                <a href="#perjalanan" class="block hover:text-cyan-400 transition-colors mobile-link">Perjalanan</a>
+                <a href="#arsitektur" class="block hover:text-cyan-400 transition-colors mobile-link">Arsitektur</a>
+                <a href="#uses" class="block hover:text-cyan-400 transition-colors mobile-link">/uses</a>
+                <a href="#sertifikasi" class="block hover:text-cyan-400 transition-colors mobile-link">Sertifikasi</a>
+                <a href="#blog" class="block hover:text-cyan-400 transition-colors mobile-link">Blog</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -z-10 animate-pulse" style="animation-delay: 1s;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full fade-in flex flex-col-reverse md:flex-row items-center justify-between gap-12">
+            <div class="max-w-2xl md:w-3/5">
+                <p class="font-mono text-cyan-400 mb-4">Halo, perkenalkan nama saya</p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight">zakariar.com</h1>
+                
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-400 mb-6 min-h-[3rem] md:min-h-[4rem]">
+                    Saya seorang <span id="typewriter" class="text-slate-200 font-medium text-gradient"></span><span class="typing-cursor"></span>
+                </h2>
+                
+                <p class="text-lg md:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl">
+                    Fokus pada otomatisasi infrastruktur, keandalan sistem, dan arsitektur cloud. Saya merancang, membangun, dan mengelola ekosistem digital agar berjalan efisien dan aman.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#perjalanan" class="px-6 py-3 bg-transparent border border-cyan-500 text-cyan-400 font-mono rounded hover:bg-cyan-500/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all duration-300">
+                        Jelajahi Profil
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Picture -->
+            <div class="md:w-2/5 flex justify-center mb-10 md:mb-0 relative group">
+                <div class="absolute inset-0 bg-cyan-500 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+                <!-- Placeholder Profil menggunakan Inisial Z -->
+                <img src="https://ui-avatars.com/api/?name=Z&size=512&background=1e293b&color=06b6d4&bold=true&rounded=true" 
+                     alt="Foto Profil Zakaria" 
+                     class="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800 profile-glow object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. Timeline Perjalanan Karir/Belajar -->
+    <section id="perjalanan" class="py-24 bg-slate-800/30">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex items-center mb-12 fade-in">
+                <h2 class="text-3xl font-bold mr-4"><span class="font-mono text-cyan-400 text-xl mr-2">01.</span>Jejak Perjalanan</h2>
+                <div class="h-px bg-slate-700 flex-grow"></div>
+            </div>
+            
+            <div class="timeline-container fade-in" style="transition-delay: 100ms;">
+                
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-slate-800 border border-slate-700 p-6 rounded-lg neon-card shadow-lg">
+                        <span class="font-mono text-cyan-400 text-sm mb-2 block">Okt 2026 - Sekarang</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Enterprise IT Project: Windows Server Domain Join & GPO</h3>
+                        <p class="text-slate-400 text-sm">
+                            Mengimplementasikan Active Directory terpusat untuk manajemen akses enterprise. Melakukan konfigurasi Group Policy Object (GPO) tingkat lanjut untuk standarisasi keamanan workstation dan server di seluruh jaringan perusahaan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-slate-800 border border-slate-700 p-6 rounded-lg neon-card shadow-lg">
+                        <span class="font-mono text-cyan-400 text-sm mb-2 block">Eksplorasi & Implementasi Cloud</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Otomatisasi Provisioning VM.Standard.A1.Flex di OCI</h3>
+                        <p class="text-slate-400 text-sm">
+                            Mengeksplorasi ekosistem Oracle Cloud Infrastructure (OCI). Menggunakan skrip dan tools IaC untuk mengotomatisasi penyebaran instance komputasi ARM (A1.Flex), mengoptimalkan penggunaan resource gratis dengan performa tinggi.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-slate-800 border border-slate-700 p-6 rounded-lg neon-card shadow-lg">
+                        <span class="font-mono text-cyan-400 text-sm mb-2 block">Awal Perjalanan</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Eksplorasi Linux & Open Source</h3>
+                        <p class="text-slate-400 text-sm">
+                            Memulai fondasi karir melalui pemahaman mendalam tentang sistem operasi GNU/Linux. Membangun homelab sederhana, mengkonfigurasi web server, database, dan mempelajari dasar-dasar jaringan komputer serta shell scripting.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Diagram Arsitektur (Cloud/Homelab) -->
+    <section id="arsitektur" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center mb-12 fade-in">
+                <h2 class="text-3xl font-bold mr-4"><span class="font-mono text-cyan-400 text-xl mr-2">02.</span>Diagram Arsitektur</h2>
+                <div class="h-px bg-slate-700 flex-grow"></div>
+            </div>
+            
+            <p class="text-slate-400 mb-8 fade-in text-lg max-w-3xl">Visualisasi topologi jaringan dan desain sistem yang saya kelola di Cloud maupun Homelab environment.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Arsitektur 1 -->
+                <div class="fade-in bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700 group neon-card">
+                    <div class="relative overflow-hidden h-64 bg-slate-900 flex items-center justify-center">
+                        <img src="https://placehold.co/800x500/0f172a/06b6d4?text=Arsitektur+OCI+ap-batam-1" alt="Arsitektur OCI" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Arsitektur OCI ap-batam-1 dengan Telegram Notifikasi</h3>
+                        <p class="text-slate-400 text-sm">Topologi deployment pada region OCI Batam yang terintegrasi dengan webhook Telegram untuk memberikan peringatan real-time terkait status infrastruktur.</p>
+                    </div>
+                </div>
+
+                <!-- Arsitektur 2 -->
+                <div class="fade-in bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700 group neon-card" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden h-64 bg-slate-900 flex items-center justify-center">
+                        <img src="https://placehold.co/800x500/0f172a/3b82f6?text=Topologi+Monitoring+Zabbix" alt="Zabbix Topology" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Topologi Monitoring Zabbix</h3>
+                        <p class="text-slate-400 text-sm">Skema sistem pemantauan terpusat menggunakan Zabbix Server dan Proxy. Mengumpulkan metrik dari berbagai node (Linux/Windows) dan perangkat jaringan secara aktif.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. /uses (Tech Stack & Gear) -->
+    <section id="uses" class="py-24 bg-slate-800/30">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center mb-12 fade-in">
+                <h2 class="text-3xl font-bold mr-4"><span class="font-mono text-cyan-400 text-xl mr-2">03.</span>/uses</h2>
+                <div class="h-px bg-slate-700 flex-grow"></div>
+            </div>
+            
+            <p class="text-slate-400 mb-10 fade-in text-lg max-w-3xl">Daftar perangkat lunak, sistem operasi, dan alat infrastruktur yang saya gunakan sebagai daily driver.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- OS & Core -->
+                <div class="fade-in neon-card bg-slate-800/80 border border-slate-700 p-6 rounded-lg">
+                    <div class="text-cyan-400 text-3xl mb-4 icon-highlight"><i class="fa-solid fa-terminal"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Sistem Operasi</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start"><i class="fa-brands fa-linux mt-1 mr-3 text-slate-400"></i><div><span class="font-semibold text-white">GNU/Linux</span><br><span class="text-xs text-slate-500">Ubuntu Server, RHEL, Alpine (Containers)</span></div></li>
+                        <li class="flex items-start"><i class="fa-brands fa-windows mt-1 mr-3 text-slate-400"></i><div><span class="font-semibold text-white">Windows Server</span><br><span class="text-xs text-slate-500">Active Directory, GPO, PowerShell</span></div></li>
+                    </ul>
+                </div>
+
+                <!-- Code & Tools -->
+                <div class="fade-in neon-card bg-slate-800/80 border border-slate-700 p-6 rounded-lg" style="transition-delay: 150ms;">
+                    <div class="text-cyan-400 text-3xl mb-4 icon-highlight"><i class="fa-solid fa-code-commit"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Code & Tools</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-center"><i class="fa-brands fa-gitlab w-6 text-center text-slate-400"></i><span>GitLab CI/CD</span></li>
+                        <li class="flex items-center"><i class="fa-brands fa-github w-6 text-center text-slate-400"></i><span>GitHub & Git</span></li>
+                        <li class="flex items-center"><i class="fa-brands fa-docker w-6 text-center text-slate-400"></i><span>Docker & Compose</span></li>
+                        <li class="flex items-center"><i class="fa-solid fa-file-code w-6 text-center text-slate-400"></i><span>VS Code & Vim</span></li>
+                    </ul>
+                </div>
+
+                <!-- Infrastruktur -->
+                <div class="fade-in neon-card bg-slate-800/80 border border-slate-700 p-6 rounded-lg" style="transition-delay: 300ms;">
+                    <div class="text-cyan-400 text-3xl mb-4 icon-highlight"><i class="fa-solid fa-server"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Infrastruktur</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start"><i class="fa-solid fa-cloud mt-1 mr-3 text-slate-400"></i><div><span class="font-semibold text-white">Cloud Providers</span><br><span class="text-xs text-slate-500">OCI (Oracle), AWS Basics</span></div></li>
+                        <li class="flex items-start"><i class="fa-solid fa-chart-line mt-1 mr-3 text-slate-400"></i><div><span class="font-semibold text-white">Monitoring</span><br><span class="text-xs text-slate-500">Zabbix, Telegram Webhooks</span></div></li>
+                        <li class="flex items-start"><i class="fa-solid fa-network-wired mt-1 mr-3 text-slate-400"></i><div><span class="font-semibold text-white">Orchestration</span><br><span class="text-xs text-slate-500">Kubernetes (K8s)</span></div></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Sertifikasi & Jejak Acara -->
+    <section id="sertifikasi" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center mb-12 fade-in">
+                <h2 class="text-3xl font-bold mr-4"><span class="font-mono text-cyan-400 text-xl mr-2">04.</span>Sertifikasi & Acara</h2>
+                <div class="h-px bg-slate-700 flex-grow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Badge 1 -->
+                <div class="fade-in neon-card bg-slate-800 border border-slate-700 rounded-xl p-6 flex items-center space-x-4">
+                    <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-dharmachakra text-2xl text-blue-400"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white leading-tight">Kubernetes Community Days Indonesia 2024</h4>
+                        <p class="text-xs text-cyan-400 font-mono mt-1">Partisipan</p>
+                    </div>
+                </div>
+
+                <!-- Badge 2 -->
+                <div class="fade-in neon-card bg-slate-800 border border-slate-700 rounded-xl p-6 flex items-center space-x-4" style="transition-delay: 150ms;">
+                    <div class="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-microchip text-2xl text-red-400"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white leading-tight">Keanggotaan Komunitas RISC-V</h4>
+                        <p class="text-xs text-cyan-400 font-mono mt-1">Member Aktif</p>
+                    </div>
+                </div>
+
+                <!-- Badge 3 -->
+                <div class="fade-in neon-card bg-slate-800 border border-slate-700 rounded-xl p-6 flex items-center space-x-4" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-graduation-cap text-2xl text-green-400"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white leading-tight">Penyelesaian Course DevOps</h4>
+                        <p class="text-xs text-cyan-400 font-mono mt-1">Sertifikat Kelulusan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Blog / Dokumentasi Teknis (Live Medium RSS) -->
+    <section id="blog" class="py-24 bg-slate-800/30">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center mb-8 fade-in">
+                <h2 class="text-3xl font-bold mr-4"><span class="font-mono text-cyan-400 text-xl mr-2">05.</span>Tulisan & Dokumentasi</h2>
+                <div class="h-px bg-slate-700 flex-grow"></div>
+            </div>
+            
+            <div class="flex justify-between items-center mb-8 fade-in">
+                <p class="text-slate-400 text-lg">Catatan teknis, tutorial, dan dokumentasi yang dipublikasikan di Medium.</p>
+                <a href="https://medium.com/@zakariar" target="_blank" class="hidden md:inline-flex items-center text-cyan-400 hover:text-cyan-300 font-mono text-sm transition-colors">
+                    Lihat Medium <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+
+            <!-- RSS Feed Container -->
+            <div id="rss-feed-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+                <!-- Loading State -->
+                <div class="col-span-full flex justify-center py-10" id="rss-loading">
+                    <i class="fa-solid fa-circle-notch fa-spin text-4xl text-cyan-500"></i>
+                </div>
+            </div>
+            
+            <!-- Mobile Fallback Link -->
+            <div class="mt-8 text-center md:hidden fade-in">
+                 <a href="https://medium.com/@zakariar" target="_blank" class="inline-flex items-center text-cyan-400 hover:text-cyan-300 font-mono transition-colors border border-cyan-500/50 px-4 py-2 rounded">
+                    Lihat Semua Tulisan <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center text-sm font-mono text-slate-500 bg-slate-900 border-t border-slate-800">
+        <p class="mb-4 text-slate-400 flex justify-center space-x-6 text-xl">
+             <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+             <a href="#" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+             <a href="mailto:hello@zakariar.com" class="hover:text-cyan-400 transition-colors"><i class="fa-solid fa-envelope"></i></a>
+        </p>
+        <p>
+            Didesain & Dibangun oleh Zakaria | 
+            <a href="https://zakariar.com" class="text-cyan-500 hover:text-cyan-300 transition-colors duration-300" style="text-shadow: 0 0 10px rgba(6,182,212,0.3);">
+                zakariar.com
+            </a>
+        </p>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // --- Navbar background effect ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('border-slate-800', 'shadow-lg');
+                navbar.classList.remove('border-transparent');
+            } else {
+                navbar.classList.remove('border-slate-800', 'shadow-lg');
+                navbar.classList.add('border-transparent');
+            }
+        });
+
+        // --- Mobile menu toggle ---
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Typing Animation ---
+        const textToType = "System & Cloud Engineer";
+        const typeTarget = document.getElementById('typewriter');
+        let typeIndex = 0;
+        
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                typeTarget.innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, Math.floor(Math.random() * 80) + 50);
+            }
+        }
+        setTimeout(typeWriter, 1000);
+
+        // --- Intersection Observer for Fade-In Effects ---
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        
+        const appearOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        
+        faders.forEach(fader => appearOnScroll.observe(fader));
+
+        // --- Live Medium RSS Fetch ---
+        const mediumRSSUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@zakariar';
+        const rssContainer = document.getElementById('rss-feed-container');
+        const rssLoading = document.getElementById('rss-loading');
+
+        fetch(mediumRSSUrl)
+            .then(response => response.json())
+            .then(data => {
+                rssLoading.style.display = 'none'; // Sembunyikan loading
+                
+                if (data.status === 'ok' && data.items.length > 0) {
+                    // Ambil maksimal 3 artikel terbaru
+                    const articles = data.items.slice(0, 3);
+                    
+                    articles.forEach((item, index) => {
+                        // Bersihkan tag HTML dari deskripsi untuk snippet (fallback)
+                        const tmp = document.createElement("DIV");
+                        tmp.innerHTML = item.description;
+                        const textDescription = tmp.textContent || tmp.innerText || "";
+                        const snippet = textDescription.substring(0, 120) + '...';
+                        
+                        // Coba cari thumbnail (gambar pertama di deskripsi jika thumbnail dari API kosong)
+                        let imageUrl = item.thumbnail;
+                        if (!imageUrl) {
+                            const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
+                            imageUrl = imgMatch ? imgMatch[1] : `https://placehold.co/600x400/1e293b/06b6d4?text=Blog+${index + 1}`;
+                        }
+
+                        // Format tanggal
+                        const pubDate = new Date(item.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                        const articleCard = `
+                            <a href="${item.link}" target="_blank" class="block group h-full">
+                                <div class="bg-slate-800/80 border border-slate-700 rounded-xl overflow-hidden neon-card h-full flex flex-col">
+                                    <div class="h-48 overflow-hidden relative bg-slate-900">
+                                        <img src="${imageUrl}" alt="${item.title}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" onerror="this.src='https://placehold.co/600x400/1e293b/06b6d4?text=Blog+Post'">
+                                    </div>
+                                    <div class="p-6 flex flex-col flex-grow">
+                                        <span class="text-xs font-mono text-cyan-400 mb-2">${pubDate}</span>
+                                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors line-clamp-2">${item.title}</h3>
+                                        <p class="text-sm text-slate-400 mb-4 line-clamp-3 flex-grow">${snippet}</p>
+                                        <span class="text-cyan-500 text-sm font-semibold mt-auto inline-flex items-center group-hover:translate-x-1 transition-transform">Baca selengkapnya <i class="fa-solid fa-arrow-right text-xs ml-1"></i></span>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                        rssContainer.innerHTML += articleCard;
+                    });
+                } else {
+                    throw new Error("Data RSS kosong atau tidak valid.");
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching Medium RSS:', error);
+                rssLoading.style.display = 'none';
+                rssContainer.innerHTML = `
+                    <div class="col-span-full bg-slate-800/50 border border-slate-700 rounded-lg p-8 text-center">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl text-slate-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Gagal Memuat Artikel</h3>
+                        <p class="text-slate-400 mb-4">Tidak dapat mengambil data dari Medium saat ini. Anda dapat mengunjungi profil Medium saya secara langsung.</p>
+                        <a href="https://medium.com/@zakariar" target="_blank" class="inline-block px-6 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded transition-colors">Menuju Medium</a>
+                    </div>
+                `;
+            });
+    </script>
+</body>
+</html>
